@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#14202b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Orçamento">
+<meta name="author" content="Luís Ricardo de Almeida Siqueira">
+<title>Orçamento Elétrico</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAACg0lEQVR42u3dzVECQRSFUadjGF1TbCdE1oZiWibgzghIAKpY0D3v53whWKfuPFBw2y/Hh/So4UcgOASH4BAcgkNwCA7BITgEhwSH4BAcgkNwCI5q/X7/waFGMuAgA47JMq63TzjkIFX7BwocZMAxWUbVgwMOmwEHGXAIDrMBRwYZha9ROGwGHGTAQQYcgiP8bNS+RuHwQIGDDDjIgCOEjPIHBxyCwwMFDjLgIAOOwDI6XKNw2Aw4yIBDcJgNOKLKaHKNNsVhM+AgAw4y4AhSn4OjFw6zAQcZcJABBxlw5JDR6hr1akVdcXigwEEGHGTAEVZGt2u0IA6bAYfgMBtwxJfR8OCog8NmwEEGHGTAITjSz0bPazQ3Dg+U2W375SAjeGdN1yCDjDo4yICDjPMPYS9lVQKH2YCDjCjvrAwyyEiMgww4yAj3Pr1XK8qJw2zAQUbQX/wOMsjIhIMMOMiI/mdEXq0oCQ6zAQcZOf4udZBBRmgcZMBBRrJPOXi1oqg4zAYcZKT82Nwgg4xnZf3EWyKdeT9q6yAlA44zZiP7x/Mth+DwQIGDDDjIgCPhNVrpO6IsBxlwCA6zAUe4g6Pk11FaDjLgIAMOMuAQHLGv0fLfiW45yICDDDjIgIMMOAJfo3Co72zAQQYcZMAx6eDwDwBFBhyCw2zAQQYcy69RMiwHGXCQAQcZcAiO5deo2bAcZMBBBhxkwDHr4CDDcggODxQ4yICDDDiWX6NkwGEz4BAcZgMOMuBYfo2SAYfNgIMMOATHxIPDbMDhgQIHGWvr+39l5SAVHIJDcAgOwSE4BIfgkOAQHIJDb2z7//nyU5DlEByCQ3AIDsEhOASH4BAcEhx6rTvZRfnbPgXGgAAAAABJRU5ErkJggg==">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAACg0lEQVR42u3dzVECQRSFUadjGF1TbCdE1oZiWibgzghIAKpY0D3v53whWKfuPFBw2y/Hh/So4UcgOASH4BAcgkNwCA7BITgEhwSH4BAcgkNwCI5q/X7/waFGMuAgA47JMq63TzjkIFX7BwocZMAxWUbVgwMOmwEHGXAIDrMBRwYZha9ROGwGHGTAQQYcgiP8bNS+RuHwQIGDDDjIgCOEjPIHBxyCwwMFDjLgIAOOwDI6XKNw2Aw4yIBDcJgNOKLKaHKNNsVhM+AgAw4y4AhSn4OjFw6zAQcZcJABBxlw5JDR6hr1akVdcXigwEEGHGTAEVZGt2u0IA6bAYfgMBtwxJfR8OCog8NmwEEGHGTAITjSz0bPazQ3Dg+U2W375SAjeGdN1yCDjDo4yICDjPMPYS9lVQKH2YCDjCjvrAwyyEiMgww4yAj3Pr1XK8qJw2zAQUbQX/wOMsjIhIMMOMiI/mdEXq0oCQ6zAQcZOf4udZBBRmgcZMBBRrJPOXi1oqg4zAYcZKT82Nwgg4xnZf3EWyKdeT9q6yAlA44zZiP7x/Mth+DwQIGDDDjIgCPhNVrpO6IsBxlwCA6zAUe4g6Pk11FaDjLgIAMOMuAQHLGv0fLfiW45yICDDDjIgIMMOAJfo3Co72zAQQYcZMAx6eDwDwBFBhyCw2zAQQYcy69RMiwHGXCQAQcZcAiO5deo2bAcZMBBBhxkwDHr4CDDcggODxQ4yICDDDiWX6NkwGEz4BAcZgMOMuBYfo2SAYfNgIMMOATHxIPDbMDhgQIHGWvr+39l5SAVHIJDcAgOwSE4BIfgkOAQHIJDb2z7//nyU5DlEByCQ3AIDsEhOASH4BAcEhx6rTvZRfnbPgXGgAAAAABJRU5ErkJggg==">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<header>
+  <h1><svg width="20" height="22" viewBox="0 0 20 22" aria-hidden="true"><path d="M12 0 1 13h7l-2 9 11-13h-7z" fill="var(--pr)"/></svg>Orçamento Elétrico</h1>
+  <p id="sub">Monte e envie orçamentos pelo celular</p>
+</header>
+
+<main>
+<section class="tab on" id="t-novo">
+  <div class="exemplo" id="aviso-ex" hidden>Este é um orçamento de exemplo para você ver como funciona. Toque em <b>＋ Novo</b> para começar o seu.</div>
+  <div class="card">
+    <h2><span id="tit">Novo orçamento</span><button class="btn sm sec" onclick="limpar()">＋ Novo</button></h2>
+    <label for="f-cliente">Cliente</label><input id="f-cliente" placeholder="Nome do cliente">
+    <div class="row">
+      <div><label for="f-tel">Telefone (WhatsApp)</label><input id="f-tel" inputmode="tel" placeholder="(15) 99999-9999"></div>
+      <div><label for="f-data">Data</label><input id="f-data" type="date"></div>
+    </div>
+    <p class="hint" style="margin-top:6px">🔒 Dados do cliente usados só para este orçamento e guardados apenas neste aparelho (LGPD).</p>
+    <label for="f-end">Endereço da obra</label><input id="f-end" placeholder="Rua, número, bairro">
+    <label for="f-tipo">Tipo de serviço</label>
+    <select id="f-tipo"><option>Instalação nova</option><option>Reforma</option><option>Manutenção / reparo</option><option>Padrão de entrada</option><option>Limpeza de placa solar</option><option>Outro</option></select>
+  </div>
+
+  <div class="card">
+    <h2>Itens do orçamento</h2>
+    <div id="itens"></div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn" onclick="abrirCat()">＋ Da tabela</button>
+      <button class="btn sec" onclick="abrirAvulso()">＋ Item avulso</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Condições</h2>
+    <div class="row">
+      <div><label for="f-desc">Desconto</label><input id="f-desc" type="number" inputmode="decimal" placeholder="0"></div>
+      <div><label for="f-desctipo">Tipo</label><select id="f-desctipo"><option value="%">%</option><option value="R$">R$</option></select></div>
+    </div>
+    <div class="row">
+      <div><label for="f-val">Validade (dias)</label><input id="f-val" type="number" inputmode="numeric"></div>
+      <div><label for="f-prazo">Prazo de execução</label><input id="f-prazo" placeholder="Ex.: 2 dias"></div>
+    </div>
+    <label for="f-pag">Forma de pagamento</label><input id="f-pag" placeholder="Ex.: 50% entrada, 50% na entrega / Pix">
+    <label class="chk" for="f-art"><input id="f-art" type="checkbox">Serviço com ART / TRT (padrão de entrada, projeto…)</label>
+    <div id="art-box" hidden><label for="f-artn">Nº da ART / TRT (preencha quando emitir)</label><input id="f-artn" placeholder="Opcional">
+      <div class="stack"><button class="btn sec" onclick="abrirFicha()">📋 Abrir prévia da ART</button></div></div>
+    <label for="f-obs">Observações</label><textarea id="f-obs" rows="2" placeholder="Ex.: Material por conta do cliente"></textarea>
+  </div>
+
+  <div class="card tot" id="tot"></div>
+
+  <button class="btn dk" onclick="salvar()">Salvar orçamento</button>
+  <button class="btn wa" onclick="enviar(cur)">Compartilhar no WhatsApp</button>
+</section>
+
+<section class="tab" id="t-solar">
+  <div class="card">
+    <h2>Limpeza de placa solar</h2>
+    <p class="hint">Calcule o valor pela quantidade de placas e gere o orçamento pronto para salvar e enviar.</p>
+    <label for="s-cliente">Cliente</label><input id="s-cliente" placeholder="Nome do cliente">
+    <div class="row">
+      <div><label for="s-tel">Telefone (WhatsApp)</label><input id="s-tel" inputmode="tel" placeholder="(15) 99999-9999"></div>
+      <div><label for="s-qtd">Nº de placas</label><input id="s-qtd" type="number" inputmode="numeric" value="12"></div>
+    </div>
+    <label for="s-end">Endereço</label><input id="s-end" placeholder="Rua, número, bairro">
+    <div class="row">
+      <div><label for="s-preco">Preço por placa (R$)</label><input id="s-preco" type="number" inputmode="decimal"></div>
+      <div><label for="s-desl">Deslocamento (R$)</label><input id="s-desl" type="number" inputmode="decimal" value="0"></div>
+    </div>
+    <label for="s-acesso">Acesso às placas</label>
+    <select id="s-acesso"><option value="0">Fácil (solo, laje ou térreo)</option><option value="20">Telhado inclinado (+20%)</option><option value="40">Difícil / muito alto (+40%)</option></select>
+    <label for="s-suj">Sujeira</label>
+    <select id="s-suj"><option value="0">Normal (poeira)</option><option value="25">Pesada: fuligem, folhas, fezes de pássaro (+25%)</option></select>
+    <label for="s-plano">Plano de limpeza</label>
+    <select id="s-plano"><option value="avulsa">Limpeza avulsa</option><option value="mensal">Plano mensal (12 limpezas por ano)</option><option value="trimestral">Plano trimestral (4 por ano)</option><option value="semestral">Plano semestral (2 por ano)</option></select>
+    <div class="row">
+      <div><label for="s-desc">Desconto do plano (%)</label><input id="s-desc" type="number" inputmode="decimal"></div>
+      <div><label for="s-dias">Próxima limpeza em (dias)</label><input id="s-dias" type="number" inputmode="numeric"></div>
+    </div>
+    <p class="hint" style="margin-top:6px">O desconto que você colocar fica salvo para esse plano.</p>
+    <label for="s-feita">Data desta limpeza</label><input id="s-feita" type="date">
+    <label><input id="s-insp" type="checkbox" style="width:auto;margin-right:6px;vertical-align:middle">Incluir inspeção do sistema (cabos, conectores, inversor)</label>
+  </div>
+  <div class="card tot" id="s-tot"></div>
+  <button class="btn" onclick="gerarSolar()">Gerar orçamento</button>
+  <button class="btn dk" onclick="registrarLimpeza()">Registrar limpeza feita e avisar cliente</button>
+  <div class="card">
+    <h2>Próximas limpezas</h2>
+    <p class="hint">Cada limpeza registrada entra aqui com a data da próxima. Toque em <b>Avisar</b> para mandar o lembrete ao cliente.</p>
+    <div id="agenda"></div>
+  </div>
+  <div class="card">
+    <h2>Boas práticas na limpeza</h2>
+    <ul class="hint" style="margin:6px 0 0;padding-left:18px;line-height:1.6;font-size:13px">
+      <li>Limpar cedo ou no fim da tarde, com as placas frias. Água fria em vidro quente pode trincar.</li>
+      <li>Usar água limpa e escova ou rodo de cerda macia. Nada de produto abrasivo, sabão forte ou lavadora de alta pressão.</li>
+      <li>Desligar o sistema pelo inversor antes de começar e não pisar nas placas.</li>
+      <li>Trabalho em telhado é trabalho em altura: cinto, linha de vida e ponto de ancoragem (NR-35).</li>
+      <li>Em geral, de 1 a 2 limpezas por ano. Perto de estrada de terra, árvores ou área rural, com mais frequência.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="tab" id="t-salvos">
+  <div class="card">
+    <h2>Orçamentos salvos</h2>
+    <input id="busca" placeholder="Buscar cliente ou nº" oninput="renderSalvos()" aria-label="Buscar">
+    <div class="chips" id="fst"></div>
+    <p class="hint" id="resumo"></p>
+    <div class="stack dl" hidden><button class="btn sec" onclick="csvTodos()">Exportar todos em CSV (planilha)</button></div>
+  </div>
+  <div id="lista" style="display:flex;flex-direction:column;gap:12px"></div>
+</section>
+
+<section class="tab" id="t-precos">
+  <div class="card">
+    <h2>Tabela de preços</h2>
+    <p class="hint">Toque num item para abrir. Lá dentro: mude o preço e toque no 💾, ou digite a quantidade (ex.: 5 metros de fio) e toque no ✔ para pôr no orçamento.</p>
+    <input id="cbusca" placeholder="Buscar item" oninput="renderCatEdit()" aria-label="Buscar item" style="margin-top:10px">
+    <div class="chips" id="fcat"></div>
+    <div class="row" style="margin:4px 0 2px"><button class="btn" onclick="abrirAvulso(true)">＋ Novo item na tabela</button></div>
+    <div id="catlist"></div>
+    <div class="stack">
+      <button class="btn red" onclick="perguntar('Voltar todos os preços para os valores de exemplo? Seus ajustes serão perdidos.',restaurar)">Restaurar tabela padrão</button>
+    </div>
+  </div>
+</section>
+
+<section class="tab" id="t-dados">
+  <div class="card">
+    <h2>Meus dados</h2>
+    <p class="hint">Aparecem no topo do orçamento enviado ao cliente.</p>
+    <label for="e-nome">Nome / empresa</label><input id="e-nome" placeholder="Seu nome ou nome da empresa">
+    <div class="row">
+      <div><label for="e-tel">Telefone</label><input id="e-tel" inputmode="tel"></div>
+      <div><label for="e-doc">CPF / CNPJ</label><input id="e-doc"></div>
+    </div>
+    <div class="row">
+      <div><label for="e-tit">Título profissional (opcional)</label><input id="e-tit" placeholder="Ex.: Técnico em eletrotécnica"></div>
+      <div><label for="e-crea">Registro CREA / CFT (opcional)</label><input id="e-crea" placeholder="Ex.: CREA-SP 123456"></div>
+    </div>
+    <p class="hint" style="margin-top:6px">Para quem monta padrão ou faz serviço com ART/TRT. Aparece no orçamento e na declaração.</p>
+    <label for="e-cid">Cidade</label><input id="e-cid">
+    <label for="e-val">Validade padrão (dias)</label><input id="e-val" type="number" inputmode="numeric">
+    <div class="stack"><button class="btn dk" onclick="salvarEu()">Salvar meus dados</button></div>
+  </div>
+  <div class="card">
+    <h2>Aplicativo</h2>
+    <p class="hint">Versão instalada: <b id="app-ver"></b></p>
+    <div class="stack">
+      <button class="btn" onclick="compartilharApp()">Compartilhar aplicativo</button>
+      <button class="btn sec" id="btn-atu" onclick="atualizarApp()">Atualizar aplicativo</button>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Privacidade (LGPD)</h2>
+    <p class="hint">Nome, telefone e endereço dos clientes ficam guardados só neste aparelho. Nada é enviado para servidor.</p>
+    <div class="stack">
+      <button class="btn sec" onclick="$('#m-lgpd').classList.add('on')">Ver aviso de privacidade</button>
+      <button class="btn red" onclick="perguntar('Apagar TODOS os orçamentos, clientes, preços e seus dados deste aparelho? Não dá para desfazer. Se quiser guardar, gere uma cópia de segurança antes.',apagarTudo)">Apagar todos os dados deste aparelho</button>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Cópia de segurança</h2>
+    <p class="hint">Os dados ficam só neste aparelho. Copie o código abaixo e guarde (no WhatsApp para você mesmo, por exemplo). Para restaurar, cole o código e toque em Restaurar.</p>
+    <label for="bk">Código da cópia</label>
+    <textarea id="bk" rows="4" placeholder="Toque em Gerar cópia, ou cole aqui uma cópia para restaurar"></textarea>
+    <div class="row" style="margin-top:10px">
+      <button class="btn sec" onclick="gerarCopia()">Gerar e copiar</button>
+      <button class="btn sec" onclick="perguntar('Substituir os dados deste aparelho pela cópia colada?',importar)">Restaurar</button>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <b>Orçamento Elétrico · versão <span id="ver"></span></b><br>
+  Desenvolvido por Luís Ricardo de Almeida Siqueira<br>
+  © 2026 Luís Ricardo de Almeida Siqueira — Todos os direitos reservados.<br>
+  <button class="lnk" onclick="$('#m-lgpd').classList.add('on')">Privacidade e LGPD</button>
+  <span id="lic-info" hidden></span>
+  <span class="flk"><button class="lnk" onclick="compartilharApp()">Compartilhar app</button> · <button class="lnk" onclick="atualizarApp()">Atualizar app</button></span>
+</footer>
+
+<nav>
+  <button class="on" data-t="novo"><b>📝</b>Orçamento</button>
+  <button data-t="solar"><b>☀️<i class="bdg" id="solar-badge" hidden></i></b>Placa solar</button>
+  <button data-t="salvos"><b>📂</b>Salvos</button>
+  <button data-t="precos"><b>💲</b>Preços</button>
+  <button data-t="dados"><b>👤</b>Meus dados</button>
+</nav>
+
+<div class="modal" id="m-cat" onclick="if(event.target===this)fechar()">
+  <div class="sheet">
+    <h2>Escolha os itens</h2>
+    <p class="hint">Toque no ＋ para pôr no orçamento. Depois toque no número e digite a quantidade (ex.: 5 metros de fio), ou use − e ＋.</p>
+    <input id="m-busca" placeholder="Buscar" oninput="renderModalCat()" aria-label="Buscar item" style="margin-top:8px">
+    <div class="chips" id="m-f"></div>
+    <div id="m-list"></div>
+    <div class="stack"><button class="btn sec" onclick="fechar()">Pronto</button></div>
+  </div>
+</div>
+
+<div class="modal" id="m-av" onclick="if(event.target===this)fechar()">
+  <div class="sheet">
+    <h2 id="av-tit">Item avulso</h2>
+    <label for="a-nome">Descrição</label><input id="a-nome" placeholder="Ex.: Instalação de sensor de presença">
+    <div class="row">
+      <div><label for="a-tipo">Tipo</label><select id="a-tipo"><option value="s">Serviço</option><option value="m">Material</option></select></div>
+      <div><label for="a-un">Unidade</label><select id="a-un"><option>un</option><option>m</option><option>pç</option><option>cx</option><option>rolo</option><option>vb</option><option>h</option></select></div>
+    </div>
+    <div class="row">
+      <div><label for="a-preco">Preço (R$)</label><input id="a-preco" type="number" inputmode="decimal"></div>
+      <div id="a-qbox"><label for="a-qtd">Quantidade</label><input id="a-qtd" type="number" inputmode="decimal" value="1"></div>
+    </div>
+    <div class="stack">
+      <button class="btn" onclick="addAvulso()">Adicionar</button>
+      <button class="btn sec" onclick="fechar()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="m-env" onclick="if(event.target===this)fechar()">
+  <div class="sheet">
+    <h2>Compartilhar no WhatsApp</h2>
+    <div class="stack dl" hidden style="margin-top:4px">
+      <button class="btn wa" onclick="compartilharPDF()">Compartilhar PDF</button>
+      <p class="hint">No iPhone abre a tela de compartilhar: escolha o WhatsApp e o contato. No computador, o PDF é baixado para você anexar.</p>
+      <button class="btn sec" onclick="compartilharCSV()">Compartilhar CSV (planilha)</button>
+      <button class="btn sec" onclick="compartilharDecl()">Declaração de serviço executado (PDF)</button>
+      <p class="hint">A declaração sai com seus dados, CREA/CFT e nº da ART, pronta para você e o cliente assinarem depois do serviço.</p>
+    </div>
+    <h2 style="font-size:16px;margin-top:16px">Ou mande como mensagem</h2>
+    <div class="prev" id="env-txt"></div>
+    <div class="stack">
+      <a class="btn wa" id="env-wa" href="#" target="_blank" rel="noopener">Abrir conversa no WhatsApp</a>
+      <button class="btn" onclick="copiarEnvio()">Copiar texto</button>
+      <button class="btn sec" onclick="fechar()">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="m-ok" onclick="if(event.target===this)fechar()">
+  <div class="sheet">
+    <h2>Confirmar</h2>
+    <p id="ok-txt" style="margin:6px 0 4px"></p>
+    <div class="row" style="margin-top:12px">
+      <button class="btn sec" onclick="fechar()">Cancelar</button>
+      <button class="btn red" id="ok-btn">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="m-lgpd" onclick="if(event.target===this)fechar()">
+  <div class="sheet lgpd">
+    <h2>Aviso de privacidade</h2>
+    <p class="hint">Lei Geral de Proteção de Dados (LGPD, Lei nº 13.709/2018)</p>
+    <h3>Quais dados</h3>
+    <p>Nome, telefone e endereço do cliente, informados para montar o orçamento. Quando o serviço tem ART, também o CPF ou CNPJ do contratante, que o CREA exige.</p>
+    <h3>Para que servem</h3>
+    <p>Só para elaborar, enviar e acompanhar o orçamento pedido pelo cliente. Esse uso é permitido pela LGPD como procedimento anterior a um contrato, feito a pedido do próprio cliente (art. 7º, inciso V). Os dados não são vendidos, não são repassados a terceiros e não são usados para propaganda.</p>
+    <h3>Onde ficam</h3>
+    <p>Somente na memória deste aparelho. O app não envia dados para servidor nem para o desenvolvedor. Quando o orçamento é compartilhado pelo WhatsApp, quem envia escolhe para quem manda.</p>
+    <h3>Por quanto tempo</h3>
+    <p>Enquanto forem necessários para o serviço. O profissional pode excluir um orçamento a qualquer momento na aba Salvos, ou apagar tudo em Meus dados.</p>
+    <h3>Direitos do cliente</h3>
+    <p>O cliente pode pedir para saber quais dados seus estão guardados, corrigir ou pedir a exclusão (art. 18 da LGPD). Basta falar com o profissional que fez o orçamento.</p>
+    <h3>Responsabilidade</h3>
+    <p>Quem usa o app e cadastra os clientes é o responsável pelos dados (controlador). Mantenha o celular com senha ou biometria.</p>
+    <div class="stack"><button class="btn sec" onclick="fechar()">Fechar</button></div>
+  </div>
+</div>
+
+<div class="modal" id="m-aviso" onclick="if(event.target===this)fechar()">
+  <div class="sheet">
+    <h2 id="aviso-tit">Avisar cliente</h2>
+    <p class="hint" style="margin-bottom:8px">Confira a mensagem e mande pelo WhatsApp.</p>
+    <div class="prev" id="av-txt"></div>
+    <div class="stack">
+      <a class="btn wa" id="av-wa" href="#" target="_blank" rel="noopener">Abrir conversa no WhatsApp</a>
+      <button class="btn" onclick="copiar($('#av-txt').textContent,$('#av-txt'))">Copiar mensagem</button>
+      <button class="btn sec" onclick="fechar()">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="m-art" onclick="if(event.target===this)fechar()">
+  <div class="sheet">
+    <h2>Prévia da ART</h2>
+    <p class="exemplo" style="margin:6px 0 4px">Rascunho para preencher no sistema do CREA (ou TRT no CFT). Não é a ART e não vale sozinho: a ART só vale depois de registrada e paga.</p>
+    <h3 class="sh">Descrição da atividade</h3>
+    <label for="a-mod">Modelo</label><select id="a-mod" onchange="trocarModelo()"></select>
+    <div id="art-campos"></div>
+    <div class="row" style="margin-top:8px">
+      <button class="btn sec" onclick="salvarModelo()">💾 Salvar texto no modelo</button>
+      <button class="btn sec" onclick="$('#a-nmbox').hidden=false;$('#a-nm').focus()">＋ Novo modelo</button>
+    </div>
+    <div id="a-nmbox" hidden class="row" style="margin-top:8px"><input id="a-nm" placeholder="Nome do novo modelo" aria-label="Nome do novo modelo"><button class="btn" style="flex:none;width:auto" onclick="novoModelo()">Criar</button></div>
+    <div class="stack" style="margin-top:14px">
+      <button class="btn" onclick="copiarFicha()">Copiar tudo</button>
+      <button class="btn sec dl" hidden onclick="pdfFicha()">PDF da prévia (para imprimir)</button>
+      <button class="btn dk" onclick="salvarFicha()">Salvar prévia no orçamento</button>
+      <button class="btn sec" onclick="fechar()">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="m-pin" onclick="if(event.target===this)fechar()">
+  <div class="sheet">
+    <h2>Área do desenvolvedor</h2>
+    <label for="pin-in">PIN</label>
+    <input id="pin-in" type="password" inputmode="numeric" autocomplete="off" onkeydown="if(event.key==='Enter')conferirPin()">
+    <div class="stack"><button class="btn dk" onclick="conferirPin()">Entrar</button></div>
+  </div>
+</div>
+
+<div class="modal" id="m-dev" onclick="if(event.target===this)fechar()">
+  <div class="sheet">
+    <h2>Área do desenvolvedor</h2>
+    <p class="hint">Versão <b id="dv-ver"></b> · <span id="dv-stat"></span></p>
+
+    <h3 class="sh">Gerar link de acesso</h3>
+    <label for="dv-nome">Nome da pessoa</label><input id="dv-nome" placeholder="Ex.: João Eletricista">
+    <label for="dv-dias">Prazo</label>
+    <select id="dv-dias"><option value="7">Teste de 7 dias</option><option value="15" selected>Teste de 15 dias</option><option value="30">30 dias</option><option value="365">1 ano</option><option value="0">Sem prazo (liberado)</option></select>
+    <label for="dv-url">Endereço do app no GitHub</label><input id="dv-url" inputmode="url">
+    <div class="stack"><button class="btn" onclick="gerarLink()">Gerar link</button></div>
+    <div id="dv-out" hidden>
+      <p class="hint" style="margin-top:12px">Mensagem pronta para mandar:</p>
+      <div class="prev" id="dv-msg"></div>
+      <div class="stack">
+        <button class="btn" onclick="copiar($('#dv-msg').textContent,$('#dv-msg'))">Copiar mensagem</button>
+        <a class="btn wa" id="dv-wa" href="#" target="_blank" rel="noopener">Mandar no WhatsApp</a>
+      </div>
+    </div>
+
+    <h3 class="sh">Links gerados</h3>
+    <div id="dv-lics"></div>
+    <div id="dv-bloqbox" hidden>
+      <p class="hint" style="margin-top:10px">Para bloquear: no GitHub, abra o <b>app.js</b>, troque a linha <b>const BLOQUEADOS=…</b> por esta e salve. Vale na próxima vez que a pessoa abrir o app.</p>
+      <div class="code" id="dv-bloq"></div>
+      <div class="stack"><button class="btn sec" onclick="copiar($('#dv-bloq').textContent,$('#dv-bloq'))">Copiar linha</button></div>
+    </div>
+
+    <h3 class="sh">Trocar PIN</h3>
+    <label for="dv-pin">Novo PIN</label><input id="dv-pin" type="password" inputmode="numeric" autocomplete="off">
+    <div class="stack"><button class="btn sec" onclick="gerarPin()">Gerar linha do novo PIN</button></div>
+    <div id="dv-pinbox" hidden>
+      <p class="hint" style="margin-top:10px">No GitHub, abra o <b>app.js</b>, troque a linha <b>const DEV_PIN_HASH=…</b> por esta e salve.</p>
+      <div class="code" id="dv-pinlinha"></div>
+      <div class="stack"><button class="btn sec" onclick="copiar($('#dv-pinlinha').textContent,$('#dv-pinlinha'))">Copiar linha</button></div>
+    </div>
+
+    <div class="stack" style="margin-top:16px">
+      <button class="btn red" onclick="sairDev()">Sair do modo desenvolvedor neste aparelho</button>
+    </div>
+  </div>
+</div>
+
+<div class="trava" id="trava" hidden>
+  <svg width="44" height="48" viewBox="0 0 20 22" aria-hidden="true"><path d="M12 0 1 13h7l-2 9 11-13h-7z" fill="var(--pr)"/></svg>
+  <h2 id="trava-tit">Acesso não liberado</h2>
+  <p id="trava-txt"></p>
+  <p style="font-size:13px">Desenvolvido por Luís Ricardo de Almeida Siqueira</p>
+  <button class="lnk" onclick="pedirPin()">Sou o desenvolvedor</button>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
