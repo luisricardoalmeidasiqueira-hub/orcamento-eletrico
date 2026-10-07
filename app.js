@@ -1,5 +1,5 @@
-/* Orçamento Elétrico v2.6 — Desenvolvido por Luís Ricardo de Almeida Siqueira. © 2026 Todos os direitos reservados. */
-const VERSAO='2.6';
+/* Orçamento Elétrico v2.8 — Desenvolvido por Luís Ricardo de Almeida Siqueira. © 2026 Todos os direitos reservados. */
+const VERSAO='2.8';
 const $=s=>document.querySelector(s);
 const brl=n=>(+n||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
 const num=v=>parseFloat(String(v).replace(',','.'))||0;
@@ -513,7 +513,7 @@ $('#ver').textContent=VERSAO;
    O PIN do desenvolvedor é trocado na própria área do desenvolvedor.        */
 const BLOQUEADOS=[];
 const EXIGIR_LICENCA=true;
-const DEV_PIN_HASH='jew7ln1h10dtz';
+const DEV_PIN_HASH='l08212bx479i';
 const SAL='oe-lras-2026';
 function hashTxt(t){let h1=0x811c9dc5,h2=0x01000193;for(let i=0;i<t.length;i++){const c=t.charCodeAt(i);h1=Math.imul(h1^c,16777619)>>>0;h2=Math.imul(h2^c,2654435761)>>>0}return h1.toString(36)+h2.toString(36)}
 const assinar=o=>hashTxt([o.c,o.n,o.v,SAL].join('|'));
