@@ -257,12 +257,12 @@
   </div>
 </div>
 
-<div class="modal" id="m-ok" onclick="if(event.target===this)fechar()">
+<div class="modal" id="m-ok" onclick="if(event.target===this)this.classList.remove('on')">
   <div class="sheet">
     <h2>Confirmar</h2>
     <p id="ok-txt" style="margin:6px 0 4px"></p>
     <div class="row" style="margin-top:12px">
-      <button class="btn sec" onclick="fechar()">Cancelar</button>
+      <button class="btn sec" onclick="$('#m-ok').classList.remove('on')">Cancelar</button>
       <button class="btn red" id="ok-btn">Confirmar</button>
     </div>
   </div>
@@ -354,7 +354,7 @@
     <h3 class="sh">Links gerados</h3>
     <div id="dv-lics"></div>
     <div id="dv-bloqbox" hidden>
-      <p class="hint" style="margin-top:10px">Para bloquear: no GitHub, abra o <b>app.js</b>, troque a linha <b>const BLOQUEADOS=…</b> por esta e salve. Vale na próxima vez que a pessoa abrir o app.</p>
+      <p class="hint" style="margin-top:10px" id="dv-bloqmsg"></p>
       <div class="code" id="dv-bloq"></div>
       <div class="stack"><button class="btn sec" onclick="copiar($('#dv-bloq').textContent,$('#dv-bloq'))">Copiar linha</button></div>
     </div>

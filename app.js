@@ -1,5 +1,5 @@
-/* Orçamento Elétrico v2.8 — Desenvolvido por Luís Ricardo de Almeida Siqueira. © 2026 Todos os direitos reservados. */
-const VERSAO='2.8';
+/* Orçamento Elétrico v2.9 — Desenvolvido por Luís Ricardo de Almeida Siqueira. © 2026 Todos os direitos reservados. */
+const VERSAO='2.9';
 const $=s=>document.querySelector(s);
 const brl=n=>(+n||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
 const num=v=>parseFloat(String(v).replace(',','.'))||0;
@@ -8,10 +8,23 @@ const hoje=()=>{const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffs
 const dataBR=s=>s?s.split('-').reverse().join('/'):'';
 const LS={get(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),2200)}
-function perguntar(msg,fn){$('#ok-txt').textContent=msg;$('#ok-btn').onclick=()=>{fechar();fn()};$('#m-ok').classList.add('on')}
-async function copiar(txt,el){
-  try{await navigator.clipboard.writeText(txt);toast('Copiado ✔')}
-  catch(e){if(el){el.focus();if(el.select)el.select();else{const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r)}}toast('Texto selecionado: toque e segure para copiar')}
+function perguntar(msg,fn){$('#ok-txt').textContent=msg;$('#ok-btn').onclick=()=>{$('#m-ok').classList.remove('on');fn()};$('#m-ok').classList.add('on')}
+function copiar(txt,el){
+  /* 1º jeito: cópia direta (funciona melhor no iPhone, dentro do toque) */
+  let ok=false;
+  try{const t=document.createElement('textarea');t.value=txt;t.setAttribute('readonly','');
+    t.style.cssText='position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;font-size:16px';
+    document.body.appendChild(t);t.focus();t.select();t.setSelectionRange(0,txt.length);
+    ok=document.execCommand('copy');t.remove()}catch(e){}
+  if(ok){toast('Copiado ✔');return}
+  /* 2º jeito: área de transferência do navegador */
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(()=>toast('Copiado ✔')).catch(()=>selecionar(el))}
+  else selecionar(el);
+}
+function selecionar(el){
+  if(el){el.focus();if(el.select)el.select();else{const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r)}}
+  toast('Não deu para copiar sozinho. Toque e segure no texto para copiar');
 }
 
 const CAT0=[
@@ -503,7 +516,7 @@ function ir(t){
 }
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>ir(b.dataset.t));
 
-document.querySelectorAll('.sheet').forEach(sh=>{const d=document.createElement('div');d.className='stop';d.innerHTML='<button type="button" onclick="fechar()">‹ Voltar</button><button type="button" class="xx" aria-label="Fechar" onclick="fechar()">✕</button>';sh.prepend(d)});
+document.querySelectorAll('.sheet').forEach(sh=>{const d=document.createElement('div');d.className='stop';d.innerHTML='<button type="button" onclick="this.closest(\'.modal\').classList.remove(\'on\')">‹ Voltar</button><button type="button" class="xx" aria-label="Fechar" onclick="this.closest(\'.modal\').classList.remove(\'on\')">✕</button>';sh.prepend(d)});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')fechar()});
 $('#ver').textContent=VERSAO;
 /* ================== ÁREA DO DESENVOLVEDOR / LICENÇAS ==================
@@ -576,15 +589,30 @@ function gerarLink(){
 }
 function msgLic(l){return `Olá, ${l.n}! Segue o seu acesso ao app *Orçamento Elétrico*${l.v?' (teste até '+dataBR(l.v)+')':''}:\n\n${l.link}\n\nDica: abra o link no Safari ou no Chrome e toque em "Adicionar à Tela de Início" para ficar como um app no celular.\n\nQualquer dúvida, é só me chamar.`}
 function mostrarMsgLic(l){$('#dv-msg').textContent=msgLic(l);$('#dv-wa').href='https://wa.me/?text='+encodeURIComponent(msgLic(l));$('#dv-out').hidden=false;$('#dv-out').scrollIntoView({block:'nearest',behavior:'smooth'})}
+function codigosBloq(){
+  const set=new Set(BLOQUEADOS);
+  devLics.forEach(l=>{if(l.bloq===true)set.add(l.c);if(l.bloq===false)set.delete(l.c)});
+  return[...set];
+}
 function renderDevLics(){
-  $('#dv-lics').innerHTML=devLics.map((l,i)=>{const bl=BLOQUEADOS.includes(l.c),venc=l.v&&diasAte(l.v)<0;
-    const [cls,st]=bl?['at','Bloqueado']:venc?['at','Vencido']:l.v?['av','Até '+dataBR(l.v)]:['ok','Sem prazo'];
+  $('#dv-lics').innerHTML=devLics.map((l,i)=>{
+    const noGit=BLOQUEADOS.includes(l.c),quer=l.bloq===true||(l.bloq!==false&&noGit),venc=l.v&&diasAte(l.v)<0;
+    const [cls,st]=quer&&noGit?['at','Bloqueado']:quer?['av','Bloqueio falta subir no GitHub']:noGit?['av','Desbloqueio falta subir no GitHub']:venc?['at','Vencido']:l.v?['av','Até '+dataBR(l.v)]:['ok','Liberado · sem prazo'];
     return`<div class="ag"><div class="agh"><b>${esc(l.n)}</b><span class="pill ${cls}">${st}</span></div>
     <small>Código <b>${l.c}</b> · criado em ${dataBR(l.criado)}</small>
-    <div class="acts"><button class="btn sm wa" onclick="mostrarMsgLic(devLics[${i}])">Mensagem</button><button class="btn sm sec" onclick="copiar(devLics[${i}].link)">Copiar link</button><button class="btn sm red" onclick="instrBloq(${i})">Bloquear</button></div></div>`}).join('')||'<div class="empty">Nenhum link gerado ainda.</div>';
+    <div class="acts"><button class="btn sm wa" onclick="mostrarMsgLic(devLics[${i}])">Mensagem</button><button class="btn sm sec" onclick="copiar(devLics[${i}].link)">Copiar link</button>${quer
+      ?`<button class="btn sm" onclick="desbloquear(${i})">Desbloquear</button>`
+      :`<button class="btn sm red" onclick="perguntar('Bloquear ${esc(l.n).replace(/'/g,'')}? O app dele só trava depois que você colar a linha no app.js do GitHub.',()=>bloquear(${i}))">Bloquear</button>`}</div></div>`}).join('')||'<div class="empty">Nenhum link gerado ainda.</div>';
 }
-function instrBloq(i){const c=devLics[i].c,lista=[...new Set(BLOQUEADOS.concat(c))].map(x=>"'"+x+"'").join(',');
-  $('#dv-bloq').textContent=`const BLOQUEADOS=[${lista}];`;$('#dv-bloqbox').hidden=false;$('#dv-bloqbox').scrollIntoView({block:'nearest',behavior:'smooth'})}
+function linhaBloq(){
+  const lista=codigosBloq(),linha=`const BLOQUEADOS=[${lista.map(x=>"'"+x+"'").join(',')}];`;
+  const igual=lista.length===BLOQUEADOS.length&&lista.every(c=>BLOQUEADOS.includes(c));
+  $('#dv-bloq').textContent=linha;
+  $('#dv-bloqmsg').innerHTML=igual?'Nada para mudar no GitHub: o app.js já está assim.':'No GitHub, abra o <b>app.js</b>, troque a linha <b>const BLOQUEADOS=…</b> por esta e salve. Vale na próxima vez que a pessoa abrir o app.';
+  $('#dv-bloqbox').hidden=false;$('#dv-bloqbox').scrollIntoView({block:'nearest',behavior:'smooth'});
+}
+function bloquear(i){devLics[i].bloq=true;LS.set('oe_dev_lics',devLics);renderDevLics();linhaBloq();toast(devLics[i].n+' marcado para bloquear')}
+function desbloquear(i){devLics[i].bloq=false;LS.set('oe_dev_lics',devLics);renderDevLics();linhaBloq();toast(devLics[i].n+' desbloqueado ✔')}
 function gerarPin(){const p=$('#dv-pin').value.trim();if(p.length<4){toast('Use pelo menos 4 dígitos');return}
   $('#dv-pinlinha').textContent=`const DEV_PIN_HASH='${hashTxt(p+SAL)}';`;$('#dv-pinbox').hidden=false}
 

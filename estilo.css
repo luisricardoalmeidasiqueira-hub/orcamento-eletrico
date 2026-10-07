@@ -1,4 +1,4 @@
-/* Orçamento Elétrico v2.6 — © 2026 Luís Ricardo de Almeida Siqueira */
+/* Orçamento Elétrico v2.7 — © 2026 Luís Ricardo de Almeida Siqueira */
 /* Layout: app de uma coluna, cabeçalho escuro tipo quadro de distribuição, barra de abas fixa embaixo */
 :root{
   --bg:#eef1f4;--card:#ffffff;--fg:#14202b;--mu:#5d6b78;--ln:#dde3e9;
@@ -148,3 +148,4 @@ img{max-width:100%}
 #lic-info{display:block;margin-top:4px;color:var(--pr2);font-weight:600}
 #m-pin,#m-dev{z-index:60}
 .flk{display:block;margin-top:2px}
+#m-ok{z-index:70}
