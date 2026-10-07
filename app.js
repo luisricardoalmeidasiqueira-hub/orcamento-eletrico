@@ -1,5 +1,5 @@
-/* Orçamento Elétrico v2.9 — Desenvolvido por Luís Ricardo de Almeida Siqueira. © 2026 Todos os direitos reservados. */
-const VERSAO='2.9';
+/* Orçamento Elétrico v3.0 — Desenvolvido por Luís Ricardo de Almeida Siqueira. © 2026 Todos os direitos reservados. */
+const VERSAO='3.0';
 const $=s=>document.querySelector(s);
 const brl=n=>(+n||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
 const num=v=>parseFloat(String(v).replace(',','.'))||0;
@@ -553,7 +553,7 @@ function aplicarLicenca(){
   const s=situacaoLic(),tr=$('#trava');
   const info=$('#lic-info');
   info.textContent=s.dev?'Modo desenvolvedor':s.l?('Licenciado para '+s.l.n+(s.l.v?' · válido até '+dataBR(s.l.v):'')):'';
-  info.hidden=!info.textContent;
+  info.hidden=!info.textContent;$('#btn-dev').hidden=!s.dev;
   if(s.ok){tr.hidden=true;return}
   $('#trava-tit').textContent=s.motivo==='venc'?'Seu período de uso terminou':s.motivo==='bloq'?'Acesso suspenso':'Acesso não liberado';
   $('#trava-txt').textContent=s.motivo==='venc'?'O período de teste terminou em '+dataBR(s.l.v)+'. Seus orçamentos continuam guardados neste aparelho. Fale com o desenvolvedor para continuar usando.'
@@ -563,7 +563,11 @@ function aplicarLicenca(){
 }
 /* entrada escondida: tocar 5 vezes no número da versão no rodapé */
 let toquesVer=0,toqueT=0;
-$('#ver').addEventListener('click',()=>{const t=Date.now();toquesVer=t-toqueT<1500?toquesVer+1:1;toqueT=t;if(toquesVer>=5){toquesVer=0;pedirPin()}});
+const elVer=$('#ver');let segurar=null;
+elVer.addEventListener('pointerup',e=>{clearTimeout(segurar);const t=Date.now();toquesVer=t-toqueT<1500?toquesVer+1:1;toqueT=t;if(toquesVer>=5){toquesVer=0;pedirPin()}});
+elVer.addEventListener('pointerdown',()=>{clearTimeout(segurar);segurar=setTimeout(()=>{toquesVer=0;pedirPin()},2000)});
+['pointerleave','pointercancel'].forEach(ev=>elVer.addEventListener(ev,()=>clearTimeout(segurar)));
+elVer.addEventListener('contextmenu',e=>e.preventDefault());
 function pedirPin(){if(ehDev()){abrirDev();return}$('#pin-in').value='';fechar();$('#m-pin').classList.add('on');setTimeout(()=>$('#pin-in').focus(),50)}
 function conferirPin(){
   if(hashTxt($('#pin-in').value+SAL)===DEV_PIN_HASH){LS.set('oe_dev',true);aplicarLicenca();abrirDev();toast('Modo desenvolvedor ativado')}
