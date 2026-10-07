@@ -1,5 +1,5 @@
-/* Orçamento Elétrico v3.3 — Desenvolvido por Luís Ricardo de Almeida Siqueira. © 2026 Todos os direitos reservados. */
-const VERSAO='3.3';
+/* Orçamento Elétrico v3.4 — Desenvolvido por Luís Ricardo de Almeida Siqueira. © 2026 Todos os direitos reservados. */
+const VERSAO='3.4';
 const $=s=>document.querySelector(s);
 const brl=n=>(+n||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
 const num=v=>parseFloat(String(v).replace(',','.'))||0;
@@ -668,4 +668,20 @@ if(navigator.share)document.querySelectorAll('.shr').forEach(b=>b.hidden=false);
 async function compartilharTexto(id){
   const txt=$('#'+id).textContent;
   try{await navigator.share({text:txt})}catch(e){if(e&&e.name==='AbortError')return;copiar(txt,$('#'+id))}
+}
+/* ---------- Instalar como aplicativo ---------- */
+let pedidoInstalar=null;
+const instalado=()=>window.matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+if(instalado())$('#btn-inst').hidden=true;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();pedidoInstalar=e;$('#btn-inst').hidden=false});
+window.addEventListener('appinstalled',()=>{pedidoInstalar=null;$('#btn-inst').hidden=true;toast('Aplicativo instalado ✔ Procure o ícone do raio na tela inicial')});
+async function instalarApp(){
+  if(pedidoInstalar){pedidoInstalar.prompt();const r=await pedidoInstalar.userChoice.catch(()=>null);pedidoInstalar=null;if(r&&r.outcome==='accepted')toast('Instalando…');return}
+  const ua=navigator.userAgent,ios=/iPad|iPhone|iPod/.test(ua)||(ua.includes('Macintosh')&&navigator.maxTouchPoints>1),samsung=/SamsungBrowser/.test(ua),noWhats=/WhatsApp|FBAN|FBAV|Instagram/.test(ua);
+  let h='';
+  if(noWhats)h+='<p><b>Primeiro:</b> este link está aberto dentro do WhatsApp. Toque nos 3 pontinhos (ou no ícone de bússola) e escolha <b>Abrir no navegador</b>. Depois siga os passos abaixo.</p>';
+  if(ios)h+='<h3>iPhone / iPad</h3><p>1. Abra este app no <b>Safari</b>.<br>2. Toque no botão de <b>compartilhar</b> (quadrado com seta para cima).<br>3. Toque em <b>Adicionar à Tela de Início</b> e depois em <b>Adicionar</b>.</p><p>Se o ícone abrir pedindo acesso, cole o link que você recebeu e toque em Liberar acesso. É só uma vez.</p>';
+  else if(samsung)h+='<h3>Samsung Internet</h3><p>1. Toque no menu <b>☰</b> embaixo.<br>2. Toque em <b>Adicionar página a</b> e depois em <b>Tela inicial</b>.</p><p>Se preferir, abra no <b>Chrome</b>, que instala como app completo.</p>';
+  else h+='<h3>Android (Chrome)</h3><p>1. Toque nos <b>3 pontinhos ⋮</b> no canto de cima.<br>2. Toque em <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.<br>3. Confirme em <b>Instalar</b>.</p><p>Se a opção não aparecer, recarregue a página uma vez e tente de novo.</p>';
+  $('#inst-txt').innerHTML=h;$('#m-inst').classList.add('on');
 }

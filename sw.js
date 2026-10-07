@@ -1,5 +1,5 @@
-/* Orçamento Elétrico v3.3 — funcionamento offline. © 2026 Luís Ricardo de Almeida Siqueira */
-const CACHE='oe-v3.3';
+/* Orçamento Elétrico v3.4 — funcionamento offline. © 2026 Luís Ricardo de Almeida Siqueira */
+const CACHE='oe-v3.4';
 const ARQ=['./','index.html','estilo.css','app.js','manifest.json','icone-192.png','icone-512.png',
   'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'];
 self.addEventListener('install',e=>{

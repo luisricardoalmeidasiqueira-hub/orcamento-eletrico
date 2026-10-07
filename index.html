@@ -165,6 +165,7 @@
     <h2>Aplicativo</h2>
     <p class="hint">Versão instalada: <b id="app-ver"></b></p>
     <div class="stack">
+      <button class="btn dk" id="btn-inst" onclick="instalarApp()">📲 Instalar aplicativo</button>
       <button class="btn" onclick="compartilharApp()">Compartilhar aplicativo</button>
       <button class="btn sec" id="btn-atu" onclick="atualizarApp()">Atualizar aplicativo</button>
     </div>
@@ -389,6 +390,14 @@
   </div>
   <p style="font-size:13px">Desenvolvido por Luís Ricardo de Almeida Siqueira</p>
   <button class="lnk" onclick="pedirPin()">Sou o desenvolvedor</button>
+</div>
+
+<div class="modal" id="m-inst" onclick="if(event.target===this)this.classList.remove('on')">
+  <div class="sheet">
+    <h2>Instalar no aparelho</h2>
+    <div id="inst-txt" class="lgpd"></div>
+    <div class="stack"><button class="btn sec" onclick="$('#m-inst').classList.remove('on')">Entendi</button></div>
+  </div>
 </div>
 
 <div class="toast" id="toast" role="status"></div>
