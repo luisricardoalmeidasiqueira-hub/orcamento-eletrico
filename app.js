@@ -1,5 +1,5 @@
-/* Orçamento Elétrico v3.1 — Desenvolvido por Luís Ricardo de Almeida Siqueira. © 2026 Todos os direitos reservados. */
-const VERSAO='3.1';
+/* Orçamento Elétrico v3.3 — Desenvolvido por Luís Ricardo de Almeida Siqueira. © 2026 Todos os direitos reservados. */
+const VERSAO='3.3';
 const $=s=>document.querySelector(s);
 const brl=n=>(+n||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
 const num=v=>parseFloat(String(v).replace(',','.'))||0;
@@ -536,13 +536,24 @@ function hashTxt(t){let h1=0x811c9dc5,h2=0x01000193;for(let i=0;i<t.length;i++){
 const assinar=o=>hashTxt([o.c,o.n,o.v,SAL].join('|'));
 const b64e=s=>btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
 const b64d=s=>decodeURIComponent(escape(atob(s.replace(/-/g,'+').replace(/_/g,'/'))));
-function lerLinkAcesso(){
-  try{const k=new URLSearchParams(location.search).get('k');if(!k)return;
-    const o=JSON.parse(b64d(k));
-    if(o&&o.c&&o.s===assinar(o)){LS.set('oe_lic',{c:o.c,n:o.n,v:o.v||''});toast('Acesso liberado para '+o.n+' ✔')}
-    else toast('Link de acesso inválido');
-    history.replaceState(null,'',location.pathname);
+function aceitarK(k,avisar){
+  try{const o=JSON.parse(b64d(k));
+    if(o&&o.c&&o.s===assinar(o)){const ant=LS.get('oe_lic',null);LS.set('oe_lic',{c:o.c,n:o.n,v:o.v||''});
+      if(avisar||!ant||ant.c!==o.c)toast('Acesso liberado para '+o.n+' ✔');return true}
   }catch(e){}
+  return false;
+}
+/* O código de acesso fica no endereço de propósito: assim, quando a pessoa
+   coloca o app na tela de início (iPhone/iPad guardam os dados separados),
+   o ícone já abre liberado. */
+function lerLinkAcesso(){
+  const k=new URLSearchParams(location.search).get('k');if(!k)return;
+  if(!aceitarK(k,false))toast('Link de acesso inválido');
+}
+function colarLink(){
+  const t=$('#trava-link').value.trim(),m=t.match(/[?&]k=([A-Za-z0-9_-]+)/);
+  if(m&&aceitarK(m[1],true)){history.replaceState(null,'',location.pathname+'?k='+m[1]);aplicarLicenca();$('#trava-link').value=''}
+  else toast('Link não reconhecido. Copie o link inteiro que você recebeu');
 }
 const ehDev=()=>LS.get('oe_dev',false)===true;
 function situacaoLic(){
@@ -651,3 +662,10 @@ async function atualizarApp(){
 }
 /* ---------- Funcionar sem internet (Android e iPhone) ---------- */
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+/* ---------- Compartilhar texto pela tela do próprio celular ---------- */
+/* Funciona mesmo quando o link direto do WhatsApp não abre (ex.: iPad sem WhatsApp ou app na tela de início) */
+if(navigator.share)document.querySelectorAll('.shr').forEach(b=>b.hidden=false);
+async function compartilharTexto(id){
+  const txt=$('#'+id).textContent;
+  try{await navigator.share({text:txt})}catch(e){if(e&&e.name==='AbortError')return;copiar(txt,$('#'+id))}
+}

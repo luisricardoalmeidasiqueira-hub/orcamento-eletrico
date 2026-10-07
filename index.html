@@ -251,7 +251,8 @@
     <h2 style="font-size:16px;margin-top:16px">Ou mande como mensagem</h2>
     <div class="prev" id="env-txt"></div>
     <div class="stack">
-      <a class="btn wa" id="env-wa" href="#" target="_blank" rel="noopener">Abrir conversa no WhatsApp</a>
+      <button class="btn wa shr" hidden onclick="compartilharTexto('env-txt')">📤 Compartilhar (WhatsApp e outros)</button>
+      <a class="btn sec" id="env-wa" href="#" target="_blank" rel="noopener">Abrir conversa no WhatsApp direto</a>
       <button class="btn" onclick="copiarEnvio()">Copiar texto</button>
       <button class="btn sec" onclick="fechar()">Fechar</button>
     </div>
@@ -295,7 +296,8 @@
     <p class="hint" style="margin-bottom:8px">Confira a mensagem e mande pelo WhatsApp.</p>
     <div class="prev" id="av-txt"></div>
     <div class="stack">
-      <a class="btn wa" id="av-wa" href="#" target="_blank" rel="noopener">Abrir conversa no WhatsApp</a>
+      <button class="btn wa shr" hidden onclick="compartilharTexto('av-txt')">📤 Compartilhar (WhatsApp e outros)</button>
+      <a class="btn sec" id="av-wa" href="#" target="_blank" rel="noopener">Abrir conversa no WhatsApp direto</a>
       <button class="btn" onclick="copiar($('#av-txt').textContent,$('#av-txt'))">Copiar mensagem</button>
       <button class="btn sec" onclick="fechar()">Fechar</button>
     </div>
@@ -348,7 +350,8 @@
       <div class="prev" id="dv-msg"></div>
       <div class="stack">
         <button class="btn" onclick="copiar($('#dv-msg').textContent,$('#dv-msg'))">Copiar mensagem</button>
-        <a class="btn wa" id="dv-wa" href="#" target="_blank" rel="noopener">Mandar no WhatsApp</a>
+        <button class="btn wa shr" hidden onclick="compartilharTexto('dv-msg')">📤 Compartilhar (WhatsApp e outros)</button>
+      <a class="btn sec" id="dv-wa" href="#" target="_blank" rel="noopener">Mandar no WhatsApp direto</a>
       </div>
     </div>
 
@@ -379,6 +382,11 @@
   <svg width="44" height="48" viewBox="0 0 20 22" aria-hidden="true"><path d="M12 0 1 13h7l-2 9 11-13h-7z" fill="var(--pr)"/></svg>
   <h2 id="trava-tit">Acesso não liberado</h2>
   <p id="trava-txt"></p>
+  <div style="width:100%;max-width:380px;display:flex;flex-direction:column;gap:8px;margin-top:4px">
+    <label for="trava-link" style="margin:0;text-align:left">Já recebeu o link? Cole aqui:</label>
+    <input id="trava-link" placeholder="https://…?k=…" autocomplete="off" autocapitalize="off" spellcheck="false">
+    <button class="btn" onclick="colarLink()">Liberar acesso</button>
+  </div>
   <p style="font-size:13px">Desenvolvido por Luís Ricardo de Almeida Siqueira</p>
   <button class="lnk" onclick="pedirPin()">Sou o desenvolvedor</button>
 </div>

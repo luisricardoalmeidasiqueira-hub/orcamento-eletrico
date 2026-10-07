@@ -3,7 +3,6 @@
   "short_name": "Orçamento",
   "description": "Orçamentos de serviços elétricos pelo celular. Desenvolvido por Luís Ricardo de Almeida Siqueira.",
   "lang": "pt-BR",
-  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
