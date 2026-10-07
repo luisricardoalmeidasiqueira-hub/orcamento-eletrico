@@ -133,7 +133,7 @@ nav button b{position:relative;display:inline-block}
 .st{font-size:12px;padding:6px;border-radius:7px;width:auto;margin-top:4px;font-weight:600}
 .acts{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
 .prev{white-space:pre-wrap;background:var(--bg);border:1px solid var(--ln);border-radius:9px;padding:12px;font-size:13px;line-height:1.45;max-height:42vh;overflow:auto;font-variant-numeric:tabular-nums}
-.toast{position:fixed;left:50%;bottom:calc(86px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--hd);color:var(--hdfg);padding:10px 16px;border-radius:20px;font-size:14px;opacity:0;transition:opacity .25s;z-index:20;pointer-events:none;max-width:calc(100% - 32px);text-align:center}
+.toast{position:fixed;left:50%;bottom:calc(86px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--hd);color:var(--hdfg);padding:10px 16px;border-radius:20px;font-size:14px;opacity:0;transition:opacity .25s;z-index:1000;pointer-events:none;max-width:calc(100% - 32px);text-align:center}
 .toast.on{opacity:1}
 .exemplo{font-size:12px;background:var(--tagS);color:var(--tagSfg);border-radius:9px;padding:9px 11px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}

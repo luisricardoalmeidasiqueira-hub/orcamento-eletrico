@@ -1,5 +1,5 @@
-/* Orçamento Elétrico v3.0 — Desenvolvido por Luís Ricardo de Almeida Siqueira. © 2026 Todos os direitos reservados. */
-const VERSAO='3.0';
+/* Orçamento Elétrico v3.1 — Desenvolvido por Luís Ricardo de Almeida Siqueira. © 2026 Todos os direitos reservados. */
+const VERSAO='3.1';
 const $=s=>document.querySelector(s);
 const brl=n=>(+n||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
 const num=v=>parseFloat(String(v).replace(',','.'))||0;
@@ -518,6 +518,10 @@ document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>ir(b.dataset.t)
 
 document.querySelectorAll('.sheet').forEach(sh=>{const d=document.createElement('div');d.className='stop';d.innerHTML='<button type="button" onclick="this.closest(\'.modal\').classList.remove(\'on\')">‹ Voltar</button><button type="button" class="xx" aria-label="Fechar" onclick="this.closest(\'.modal\').classList.remove(\'on\')">✕</button>';sh.prepend(d)});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')fechar()});
+/* a janela aberta por último fica sempre por cima das outras */
+let zTopo=100;
+new MutationObserver(ms=>ms.forEach(m=>{const el=m.target;if(el.classList.contains('modal')&&el.classList.contains('on')&&!m.oldValue?.includes('on'))el.style.zIndex=++zTopo}))
+  .observe(document.body,{subtree:true,attributes:true,attributeFilter:['class'],attributeOldValue:true});
 $('#ver').textContent=VERSAO;
 /* ================== ÁREA DO DESENVOLVEDOR / LICENÇAS ==================
    Para BLOQUEAR alguém: coloque o código da pessoa na lista abaixo,
